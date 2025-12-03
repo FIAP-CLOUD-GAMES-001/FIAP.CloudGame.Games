@@ -1,6 +1,7 @@
 
 using FIAP.CloudGames.Api.Extensions;
 using FIAP.CloudGames.Api.Filters;
+using FIAP.CloudGames.Games.Domain.Entities;
 using FIAP.CloudGames.Games.Domain.Interfaces.Services;
 using FIAP.CloudGames.Games.Domain.Models;
 using FIAP.CloudGames.Games.Domain.Requests.Game;
@@ -8,6 +9,7 @@ using FIAP.CloudGames.Games.Domain.Responses.Game;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System.Net;
+using System.Text.Json;
 
 namespace FIAP.CloudGames.Games.Api.Controllers;
 [Route("api/[controller]")]
@@ -37,6 +39,39 @@ public class GameController(IGameService gameService) : ControllerBase
         var games = await gameService.ListAsync();
         return this.ApiOk(games, "Games retrieved successfully.");
     }
+
+    [HttpGet("{id}/recommendations")]
+    [ProducesResponseType(typeof(ApiResponse<List<GameResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Recommendations(int id)
+    {
+        var games = await gameService.RecommendationsAsync(id);
+        return this.ApiOk(games, "Games retrieved successfully.");
+    }
+
+    /* Endpoint de exemplo para mockar dados de jogos (testes ElasticSearch)
+    [HttpPost("mock")]
+    [ProducesResponseType(typeof(ApiResponse<List<GameResponse>>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> MockGames()
+    {
+        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Mock", "games.json");
+
+        var json = await System.IO.File.ReadAllTextAsync(filePath);
+
+        var options = new JsonSerializerOptions
+        {
+            PropertyNameCaseInsensitive = true
+        };
+
+        var games = JsonSerializer.Deserialize<List<CreateGameRequest>>(json, options);
+
+        foreach (var game in games)
+        {
+            await gameService.CreateAsync(game);
+        }
+
+        return this.ApiOk(games, "Games created successfully.", HttpStatusCode.Created);
+    }
+    */
 }
 
 

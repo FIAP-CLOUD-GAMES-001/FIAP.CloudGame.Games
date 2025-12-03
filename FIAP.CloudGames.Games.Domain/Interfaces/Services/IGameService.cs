@@ -6,6 +6,7 @@ public interface IGameService
 {
     Task<GameResponse> CreateAsync(CreateGameRequest request);
     Task<IEnumerable<GameResponse>> ListAsync();
+    Task<IEnumerable<GameResponse>> RecommendationsAsync(int gameId);
 }
 
 

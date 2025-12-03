@@ -10,7 +10,7 @@ public class GameMap : IEntityTypeConfiguration<GameEntity>
         builder.ToTable("Games").HasKey(g => g.Id);
         builder.Property(g => g.Id).ValueGeneratedOnAdd().IsRequired();
         builder.Property(g => g.Title).IsRequired().HasMaxLength(100);
-        builder.Property(g => g.Description).IsRequired().HasMaxLength(500);
+        builder.Property(g => g.Description).IsRequired().HasMaxLength(2000);
         builder.Property(g => g.Price).IsRequired().HasColumnType("decimal(18,2)");
         builder.Property(g => g.Genre).IsRequired();
         builder.Property(g => g.ReleaseDate).IsRequired();
