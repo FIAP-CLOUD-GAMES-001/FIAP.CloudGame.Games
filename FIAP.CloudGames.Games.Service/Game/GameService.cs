@@ -43,6 +43,13 @@ public class GameService(IGameRepository gameRepository, IGameElasticSearchRepos
         var games = await gameElasticSearchRepository.GetRecommendationsAsync(game.Id, game.Genre, game.Description);
         return games.Select(g => new GameResponse(int.Parse(g.Id), g.Title, g.Description, g.Price, Enum.Parse<EGameGenre>(g.Genre), g.ReleaseDate));
     }
+
+    public async Task<GameElasticMetrics> MetricsAsync()
+    {
+        var metrics = await gameElasticSearchRepository.GetMetricsAsync();
+
+        return metrics;
+    }
 }
 
 

@@ -14,6 +14,7 @@ public interface IGameElasticSearchRepository
         EGameGenre genre,
         string description,
         int size = 10);
+    Task<GameElasticMetrics> GetMetricsAsync();
 }
 
 

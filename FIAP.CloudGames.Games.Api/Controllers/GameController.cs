@@ -48,30 +48,36 @@ public class GameController(IGameService gameService) : ControllerBase
         return this.ApiOk(games, "Games retrieved successfully.");
     }
 
-    /* Endpoint de exemplo para mockar dados de jogos (testes ElasticSearch)
-    [HttpPost("mock")]
-    [ProducesResponseType(typeof(ApiResponse<List<GameResponse>>), StatusCodes.Status200OK)]
-    public async Task<IActionResult> MockGames()
+    [HttpGet("metrics")]
+    [ProducesResponseType(typeof(ApiResponse<GameElasticMetrics>), StatusCodes.Status200OK)]
+    public async Task<IActionResult> Metrics()
     {
-        var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Mock", "games.json");
-
-        var json = await System.IO.File.ReadAllTextAsync(filePath);
-
-        var options = new JsonSerializerOptions
-        {
-            PropertyNameCaseInsensitive = true
-        };
-
-        var games = JsonSerializer.Deserialize<List<CreateGameRequest>>(json, options);
-
-        foreach (var game in games)
-        {
-            await gameService.CreateAsync(game);
-        }
-
-        return this.ApiOk(games, "Games created successfully.", HttpStatusCode.Created);
+        var metrics = await gameService.MetricsAsync();
+        return this.ApiOk(metrics, "Metrics retrieved successfully.");
     }
-    */
+
+    // [HttpPost("mock")]
+    // [ProducesResponseType(typeof(ApiResponse<List<GameResponse>>), StatusCodes.Status200OK)]
+    // public async Task<IActionResult> MockGames()
+    // {
+    //     var filePath = Path.Combine(Directory.GetCurrentDirectory(), "Mock", "games.json");
+
+    //     var json = await System.IO.File.ReadAllTextAsync(filePath);
+
+    //     var options = new JsonSerializerOptions
+    //     {
+    //         PropertyNameCaseInsensitive = true
+    //     };
+
+    //     var games = JsonSerializer.Deserialize<List<CreateGameRequest>>(json, options);
+
+    //     foreach (var game in games)
+    //     {
+    //         await gameService.CreateAsync(game);
+    //     }
+
+    //     return this.ApiOk(games, "Games created successfully.", HttpStatusCode.Created);
+    // }
 }
 
 
