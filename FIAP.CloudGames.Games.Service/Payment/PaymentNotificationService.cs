@@ -27,29 +27,25 @@ public class PaymentNotificationService : IPaymentNotificationService
     {
         try
         {
-            
             var payment = await _paymentRepository.GetByPaymentIdAsync(request.PaymentId)
                 ?? await _paymentRepository.GetByOrderIdForUpdateAsync(request.OrderId);
 
             if (payment == null)
             {
-                _logger.LogWarning("Payment not found for PaymentId: {PaymentId}, OrderId: {OrderId}", 
+                _logger.LogWarning("Payment not found for PaymentId: {PaymentId}, OrderId: {OrderId}",
                     request.PaymentId, request.OrderId);
                 throw new NotFoundException($"Payment not found for PaymentId: {request.PaymentId} or OrderId: {request.OrderId}");
             }
 
-          
             if (string.IsNullOrEmpty(payment.PaymentId))
             {
                 payment.SetPaymentId(request.PaymentId);
             }
 
-            // O status já vem como enum no request
             payment.UpdateStatus(request.Status);
 
             await _paymentRepository.UpdateAsync(payment);
 
-            // Buscar o pedido pelo OrderId
             if (!int.TryParse(request.OrderId, out var orderId))
             {
                 _logger.LogError("Invalid OrderId format: {OrderId}", request.OrderId);
@@ -63,7 +59,6 @@ public class PaymentNotificationService : IPaymentNotificationService
                 throw new NotFoundException($"Order with ID {orderId} not found.");
             }
 
-            // Atualizar o status do pedido baseado no status do pagamento
             var orderStatus = MapPaymentStatusToOrderStatus(request.Status);
             order.UpdateStatus(orderStatus);
 
