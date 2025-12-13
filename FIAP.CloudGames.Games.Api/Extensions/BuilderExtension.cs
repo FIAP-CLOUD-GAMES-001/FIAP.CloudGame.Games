@@ -256,13 +256,12 @@ public static class BuilderExtension
     {
         var configuration = builder.Configuration.GetSection("Elasticsearch");
         var url = configuration["Url"] ?? throw new InvalidOperationException("ElasticSearch Url not configured");
-        var username = configuration["Username"] ?? throw new InvalidOperationException("ElasticSearch Username not configured");
-        var password = configuration["Password"] ?? throw new InvalidOperationException("ElasticSearch Password not configured");
+        var apiKey = configuration["ApiKey"] ?? throw new InvalidOperationException("ElasticSearch ApiKey not configured");
 
         builder.Services.AddSingleton(sp =>
         {
             var settings = new ElasticsearchClientSettings(new Uri(url))
-                .Authentication(new BasicAuthentication(username, password));
+                .Authentication(new ApiKey(apiKey));
 
             return new ElasticsearchClient(settings);
         });
