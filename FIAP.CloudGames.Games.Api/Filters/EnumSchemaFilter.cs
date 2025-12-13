@@ -8,16 +8,18 @@ namespace FIAP.CloudGames.Api.Filters
     {
         public void Apply(OpenApiSchema schema, SchemaFilterContext context)
         {
-            if(context.Type.IsEnum)
+            if (context.Type.IsEnum)
             {
-                var enumValues = schema.Enum.ToArray();
-                var i = 0;
                 schema.Enum.Clear();
-                foreach (var value in Enum.GetNames(context.Type).ToList())
+                
+                // Adicionar os nomes dos enums como strings (comportamento esperado com JsonStringEnumConverter)
+                foreach (var enumName in Enum.GetNames(context.Type))
                 {
-                    schema.Enum.Add(new OpenApiString(value + $" = { ((OpenApiPrimitive<int>)enumValues[i]).Value}"));
-                    i++;
+                    schema.Enum.Add(new OpenApiString(enumName));
                 }
+                
+                // Definir o tipo como string para refletir o comportamento do JsonStringEnumConverter
+                schema.Type = "string";
             }
         }
     }

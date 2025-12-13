@@ -8,7 +8,8 @@ public class GameEntity : BaseEntity
     public decimal Price { get; private set; }
     public EGameGenre Genre { get; private set; }
     public DateTime ReleaseDate { get; private set; }
-
+     
+   
     private GameEntity() { }
 
     public GameEntity(string title, string description, decimal price, EGameGenre genre, DateTime releaseDate)
