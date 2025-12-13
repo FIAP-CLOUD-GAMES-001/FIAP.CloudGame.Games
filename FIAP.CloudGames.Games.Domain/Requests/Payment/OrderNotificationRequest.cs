@@ -1,3 +1,5 @@
+using FIAP.CloudGames.Games.Domain.Enums;
+
 namespace FIAP.CloudGames.Games.Domain.Requests.Payment;
 
 /// <summary>
@@ -19,7 +21,7 @@ public record OrderNotificationRequest(
     /// <summary>
     /// Status do pagamento (Autorizado, Rejeitado, etc.)
     /// </summary>
-    string Status,
+    EPaymentStatus Status,
     /// <summary>
     /// Data do pagamento
     /// </summary>
