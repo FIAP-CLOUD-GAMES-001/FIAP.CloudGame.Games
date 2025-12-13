@@ -11,6 +11,28 @@ public class ValidationFilter<T>(ILogger<ValidationFilter<T>> logger) : IAsyncAc
 {
     public async Task OnActionExecutionAsync(ActionExecutingContext context, ActionExecutionDelegate next)
     {
+        // Verificar se há erros de model binding primeiro
+        if (!context.ModelState.IsValid)
+        {
+            var modelErrors = context.ModelState
+                .Where(x => x.Value?.Errors.Count > 0)
+                .SelectMany(x => x.Value!.Errors.Select(e => $"{x.Key}: {e.ErrorMessage}"))
+                .ToList();
+
+            context.Result = new ObjectResult(new ApiResponse<string>
+            {
+                Success = false,
+                Message = "Invalid request format.",
+                Errors = modelErrors
+            })
+            {
+                StatusCode = (int)HttpStatusCode.BadRequest
+            };
+
+            logger.LogError("ValidationFilter: Model binding failed, errors: {errors}", string.Join(", ", modelErrors));
+            return;
+        }
+
         var validator = context.HttpContext.RequestServices.GetService<IValidator<T>>();
         if (validator == null)
         {

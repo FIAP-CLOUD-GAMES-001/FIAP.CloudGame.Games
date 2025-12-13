@@ -4,6 +4,7 @@ using FIAP.CloudGames.Games.Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore.Infrastructure;
 using Microsoft.EntityFrameworkCore.Metadata;
+using Microsoft.EntityFrameworkCore.Migrations;
 using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 
 #nullable disable
@@ -11,9 +12,11 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace FIAP.CloudGames.Games.Infrastructure.Migrations
 {
     [DbContext(typeof(DataContext))]
-    partial class DataContextModelSnapshot : ModelSnapshot
+    [Migration("20251129175040_CreateOrder")]
+    partial class CreateOrder
     {
-        protected override void BuildModel(ModelBuilder modelBuilder)
+        /// <inheritdoc />
+        protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
 #pragma warning disable 612, 618
             modelBuilder
@@ -72,6 +75,9 @@ namespace FIAP.CloudGames.Games.Infrastructure.Migrations
                         .HasColumnType("datetime2")
                         .HasDefaultValueSql("CURRENT_TIMESTAMP");
 
+                    b.Property<int>("GameId")
+                        .HasColumnType("int");
+
                     b.Property<int>("Status")
                         .HasColumnType("int");
 
@@ -80,63 +86,9 @@ namespace FIAP.CloudGames.Games.Infrastructure.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Orders", (string)null);
-                });
-
-            modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.OrderGameEntity", b =>
-                {
-                    b.Property<int>("OrderId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("GameId")
-                        .HasColumnType("int");
-
-                    b.HasKey("OrderId", "GameId");
-
                     b.HasIndex("GameId");
 
-                    b.ToTable("OrderGames", (string)null);
-                });
-
-            modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.PaymentEntity", b =>
-                {
-                    b.Property<int>("Id")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("int");
-
-                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
-
-                    b.Property<DateTime>("CreatedAt")
-                        .ValueGeneratedOnAdd()
-                        .HasColumnType("datetime2")
-                        .HasDefaultValueSql("CURRENT_TIMESTAMP");
-
-                    b.Property<decimal>("OrderAmount")
-                        .HasColumnType("decimal(18,2)");
-
-                    b.Property<DateTime>("OrderDate")
-                        .HasColumnType("datetime2");
-
-                    b.Property<string>("OrderId")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<string>("PaymentId")
-                        .IsRequired()
-                        .HasColumnType("nvarchar(max)");
-
-                    b.Property<string>("PaymentMethod")
-                        .IsRequired()
-                        .HasMaxLength(50)
-                        .HasColumnType("nvarchar(50)");
-
-                    b.Property<int>("Status")
-                        .HasColumnType("int");
-
-                    b.HasKey("Id");
-
-                    b.ToTable("Payments", (string)null);
+                    b.ToTable("Orders", (string)null);
                 });
 
             modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.PromotionEntity", b =>
@@ -176,7 +128,7 @@ namespace FIAP.CloudGames.Games.Infrastructure.Migrations
                     b.ToTable("Promotions", (string)null);
                 });
 
-            modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.OrderGameEntity", b =>
+            modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.OrderEntity", b =>
                 {
                     b.HasOne("FIAP.CloudGames.Games.Domain.Entities.GameEntity", "Game")
                         .WithMany()
@@ -184,15 +136,7 @@ namespace FIAP.CloudGames.Games.Infrastructure.Migrations
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
-                    b.HasOne("FIAP.CloudGames.Games.Domain.Entities.OrderEntity", "Order")
-                        .WithMany("OrderGames")
-                        .HasForeignKey("OrderId")
-                        .OnDelete(DeleteBehavior.Cascade)
-                        .IsRequired();
-
                     b.Navigation("Game");
-
-                    b.Navigation("Order");
                 });
 
             modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.PromotionEntity", b =>
@@ -204,11 +148,6 @@ namespace FIAP.CloudGames.Games.Infrastructure.Migrations
                         .IsRequired();
 
                     b.Navigation("Game");
-                });
-
-            modelBuilder.Entity("FIAP.CloudGames.Games.Domain.Entities.OrderEntity", b =>
-                {
-                    b.Navigation("OrderGames");
                 });
 #pragma warning restore 612, 618
         }

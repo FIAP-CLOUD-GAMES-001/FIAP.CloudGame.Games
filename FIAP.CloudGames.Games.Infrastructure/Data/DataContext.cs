@@ -6,6 +6,9 @@ public class DataContext(DbContextOptions<DataContext> options) : DbContext(opti
 {
     public DbSet<GameEntity> Games { get; set; } = null!;
     public DbSet<PromotionEntity> Promotions { get; set; } = null!;
+    public DbSet<OrderEntity> Orders { get; set; } = null!;
+    public DbSet<OrderGameEntity> OrderGames { get; set; } = null!;
+    public DbSet<PaymentEntity> Payments { get; set; } = null!;
 
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {

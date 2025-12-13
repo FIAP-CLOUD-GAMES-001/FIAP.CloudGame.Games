@@ -6,6 +6,8 @@ using FIAP.CloudGames.Games.Domain.Models;
 using FIAP.CloudGames.Games.Infrastructure.Data;
 using FIAP.CloudGames.Games.Infrastructure.Repositories;
 using FIAP.CloudGames.Games.Service.Game;
+using FIAP.CloudGames.Games.Service.Order;
+using FIAP.CloudGames.Games.Service.Payment;
 using FIAP.CloudGames.Usuarios.Api.Logging;
 using FluentValidation;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
@@ -20,6 +22,7 @@ using System.Net;
 using System.Reflection;
 using System.Text;
 using System.Text.Json;
+using System.Text.Json.Serialization;
 
 namespace FIAP.CloudGames.Api.Extensions;
 
@@ -31,10 +34,16 @@ public static class BuilderExtension
         builder.ConfigureDbContext();
         builder.ConfigureJwt();
         builder.ConfigureLogMongo();
-        builder.Services.AddControllers();
+        builder.Services.AddControllers()
+            .AddJsonOptions(options =>
+            {
+                options.JsonSerializerOptions.Converters.Add(new JsonStringEnumConverter());
+                options.JsonSerializerOptions.PropertyNamingPolicy = JsonNamingPolicy.CamelCase;
+            });
         builder.Services.AddEndpointsApiExplorer();
         builder.ConfigureSwagger();
         builder.ConfigureDependencyInjectionRepository();
+        builder.ConfigurePaymentService();
         builder.ConfigureDependencyInjectionService();
         builder.ConfigureHealthChecks();
         builder.ConfigureValidators();
@@ -53,8 +62,23 @@ public static class BuilderExtension
         builder.Services.AddScoped<IGameService, GameService>();
         //builder.Services.AddScoped<IOwnedGameService, OwnedGameService>();
         builder.Services.AddScoped<IPromotionService, PromotionService>();
+        builder.Services.AddScoped<IOrderService, OrderService>();
+        builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
+        builder.Services.AddScoped<IPaymentNotificationService, PaymentNotificationService>();
+        // PaymentService é registrado via AddHttpClient no ConfigurePaymentService
 
         builder.Services.AddScoped<OwnedGameAccessFilter>();
+    }
+    private static void ConfigurePaymentService(this WebApplicationBuilder builder)
+    {
+        var paymentServiceConfig = builder.Configuration.GetSection("PaymentService");
+        var baseAddress = paymentServiceConfig["BaseAddress"] ?? "http://localhost:5286";
+
+        builder.Services.AddHttpClient<IPaymentService, PaymentService>(client =>
+        {
+            client.BaseAddress = new Uri(baseAddress);
+            client.Timeout = TimeSpan.FromSeconds(30);
+        });
     }
     private static void ConfigureDependencyInjectionRepository(this WebApplicationBuilder builder)
     {
@@ -62,6 +86,8 @@ public static class BuilderExtension
         builder.Services.AddScoped<IGameRepository, GameRepository>();
         //builder.Services.AddScoped<IOwnedGameRepository, OwnedGameRepository>();
         builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
+        builder.Services.AddScoped<IOrderRepository, OrderRepository>();
+        builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
     }
     private static void ConfigureJwt(this WebApplicationBuilder builder)
     {
