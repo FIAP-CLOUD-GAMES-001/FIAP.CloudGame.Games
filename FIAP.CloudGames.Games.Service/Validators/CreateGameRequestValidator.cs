@@ -15,7 +15,7 @@ public class CreateGameRequestValidator : AbstractValidator<CreateGameRequest>
         RuleFor(x => x.Description)
             .NotEmpty().WithMessage("Description is required.")
             .MinimumLength(10).WithMessage("Description must have at least 10 characters.")
-            .MaximumLength(500).WithMessage("Description cannot exceed 500 characters.");
+            .MaximumLength(2000).WithMessage("Description cannot exceed 2000 characters.");
 
         RuleFor(x => x.Price)
             .GreaterThanOrEqualTo(0).WithMessage("Price must be zero or positive.")

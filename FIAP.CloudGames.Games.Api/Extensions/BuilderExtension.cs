@@ -1,4 +1,6 @@
 ﻿
+using Elastic.Clients.Elasticsearch;
+using Elastic.Transport;
 using FIAP.CloudGames.Api.Filters;
 using FIAP.CloudGames.Games.Domain.Interfaces.Repositories;
 using FIAP.CloudGames.Games.Domain.Interfaces.Services;
@@ -47,6 +49,7 @@ public static class BuilderExtension
         builder.ConfigureDependencyInjectionService();
         builder.ConfigureHealthChecks();
         builder.ConfigureValidators();
+        builder.ConfigureElasticSearch();
     }
 
     private static void ConfigureHealthChecks(this WebApplicationBuilder builder)
@@ -84,6 +87,7 @@ public static class BuilderExtension
     {
         //builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IGameRepository, GameRepository>();
+        builder.Services.AddScoped<IGameElasticSearchRepository, GameElasticSearchRepository>();
         //builder.Services.AddScoped<IOwnedGameRepository, OwnedGameRepository>();
         builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
@@ -272,5 +276,20 @@ public static class BuilderExtension
             .AddJsonFile($"appsettings.{builder.Environment.EnvironmentName}.json", optional: true, reloadOnChange: true)
             .AddJsonFile("appsettings.Secrets.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
+    }
+
+    private static void ConfigureElasticSearch(this WebApplicationBuilder builder)
+    {
+        var configuration = builder.Configuration.GetSection("Elasticsearch");
+        var url = configuration["Url"] ?? throw new InvalidOperationException("ElasticSearch Url not configured");
+        var apiKey = configuration["ApiKey"] ?? throw new InvalidOperationException("ElasticSearch ApiKey not configured");
+
+        builder.Services.AddSingleton(sp =>
+        {
+            var settings = new ElasticsearchClientSettings(new Uri(url))
+                .Authentication(new ApiKey(apiKey));
+
+            return new ElasticsearchClient(settings);
+        });
     }
 }

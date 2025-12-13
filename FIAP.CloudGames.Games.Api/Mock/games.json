@@ -1,0 +1,212 @@
+[
+    {
+        "title": "Chronicles of Astra",
+        "description": "Um jogo de aventura épica em mundo aberto onde o jogador assume o papel de um explorador interestelar preso em um planeta misterioso chamado Astra. O mundo é vasto e cheio de ruínas antigas, florestas bioluminescentes e civilizações esquecidas. A narrativa se desenvolve através de escolhas complexas e missões ramificadas, enquanto o jogador desvenda a história perdida do planeta e enfrenta criaturas colossais. A exploração é profunda e recompensadora, com paisagens dinâmicas que mudam conforme o clima e o ciclo de dia e noite.",
+        "price": 199.90,
+        "genre": 1,
+        "releaseDate": "2023-11-10T00:00:00Z"
+    },
+    {
+        "title": "Ironbound Rebellion",
+        "description": "Ironbound Rebellion é um jogo de ação futurista ambientado em uma megacidade dominada por corporações militarizadas. O jogador assume o papel de um ex-soldado rebelde que luta contra um regime autoritário utilizando combate frenético, armas experimentais e habilidades aprimoradas por implantes cibernéticos. O sistema de combate combina tiroteios intensos com movimentos acrobáticos fluidos, permitindo que o jogador personalize completamente seu estilo de luta. A campanha é carregada de narrativa, intrigas políticas e reviravoltas sombrias.",
+        "price": 149.00,
+        "genre": 0,
+        "releaseDate": "2024-02-15T00:00:00Z"
+    },
+    {
+        "title": "Legacy of Thalmar",
+        "description": "Legacy of Thalmar é um RPG profundo que mergulha o jogador em um reino devastado por uma guerra entre facções mágicas. O herói é um descendente de uma linhagem esquecida com poderes antigos, capaz de alterar o fluxo do destino. O mundo do jogo apresenta cidades vivas, NPCs com rotinas próprias, árvores de habilidades complexas e batalhas estratégicas com magias elementais. As escolhas morais modificam significativamente o destino de Thalmar, abrindo múltiplos finais e caminhos narrativos.",
+        "price": 129.90,
+        "genre": 2,
+        "releaseDate": "2022-09-05T00:00:00Z"
+    },
+    {
+        "title": "Quantum Solve",
+        "description": "Quantum Solve é um elaboradíssimo jogo de quebra-cabeças baseado em manipulação de energia quântica. O jogador deve resolver enigmas complexos dobrando luz, reconfigurando gravidade e manipulando partículas para abrir caminhos e ativar mecanismos antigos. Cada fase apresenta desafios únicos que exigem criatividade e raciocínio lógico. A trilha sonora minimalista e o estilo visual limpo criam uma experiência relaxante, porém intelectualmente intensa, perfeita para quem busca puzzles sofisticados.",
+        "price": 59.90,
+        "genre": 6,
+        "releaseDate": "2021-06-21T00:00:00Z"
+    },
+    {
+        "title": "Echoes from the Abyss",
+        "description": "Echoes from the Abyss é um jogo de horror psicológico ambientado em uma estação submarina abandonada. O jogador acorda sem memória e deve explorar corredores inundados, laboratórios destruídos e áreas de pesquisa ocultas. O jogo foca em atmosfera, tensão e narrativa ambiental, revelando gradualmente os eventos terríveis que ocorreram no local. Criaturas grotescas e sons distantes aumentam o suspense, enquanto o jogador busca sobreviver em um ambiente claustrofóbico e opressivo.",
+        "price": 89.90,
+        "genre": 7,
+        "releaseDate": "2023-10-31T00:00:00Z"
+    },
+    {
+        "title": "Harvest of Worlds",
+        "description": "Harvest of Worlds é um simulador expansivo onde o jogador constrói e administra colônias agrícolas em diferentes planetas. Cada bioma possui desafios únicos, como tempestades iônicas, criaturas selvagens ou solo mutável. O jogo mistura gerenciamento profundo com exploração leve e elementos de automação industrial. À medida que expande sua fazenda interplanetária, o jogador pesquisa novas tecnologias, melhora seus equipamentos e domina ecossistemas inteiros.",
+        "price": 79.90,
+        "genre": 4,
+        "releaseDate": "2022-03-12T00:00:00Z"
+    },
+    {
+        "title": "Commanders of Eternity",
+        "description": "Neste jogo de estratégia de grande escala, o jogador assume o controle de uma facção em guerra em um continente dividido por ideologias. As batalhas são grandiosas e envolvem centenas de unidades, sistemas de terreno avançados e decisões táticas de longo prazo. O jogador deve gerenciar recursos, pesquisar tecnologias e construir alianças diplomáticas que podem mudar completamente o rumo da campanha. Commanders of Eternity é ideal para fãs de planejamento profundo e confrontos estratégicos complexos.",
+        "price": 149.99,
+        "genre": 3,
+        "releaseDate": "2024-01-18T00:00:00Z"
+    },
+    {
+        "title": "Velocity Arena",
+        "description": "Velocity Arena é um jogo de esportes futuristas onde equipes equipadas com propulsores antigravitacionais competem em arenas suspensas. O jogo combina velocidade extrema, colisões aéreas, táticas de equipe e habilidades especiais. Os jogadores podem customizar totalmente seus atletas e desbloquear diferentes estilos de jogo. As partidas são intensas e rápidas, exigindo reflexos apurados e trabalho em equipe. Ideal para quem gosta de esportes de ação acelerada.",
+        "price": 99.90,
+        "genre": 5,
+        "releaseDate": "2023-04-29T00:00:00Z"
+    },
+    {
+        "title": "Labyrinth of Shadows",
+        "description": "Labyrinth of Shadows é um jogo de aventura e exploração ambientado em um gigantesco labirinto subterrâneo que muda constantemente. Cada sala apresenta desafios diferentes, desde criaturas hostis até enigmas complexos baseados em luz e sombras. O jogador deve coletar artefatos antigos, descobrir passagens secretas e desvendar a origem do misterioso labirinto. A atmosfera densa e misteriosa incentiva a exploração cuidadosa e o senso de descoberta.",
+        "price": 69.99,
+        "genre": 1,
+        "releaseDate": "2021-11-22T00:00:00Z"
+    },
+    {
+        "title": "Stellar Drift",
+        "description": "Stellar Drift é um jogo de ação com foco em corrida espacial em alta velocidade. O jogador pilota naves personalizadas através de rotas perigosas no espaço profundo, enfrentando asteroides, tempestades solares e rivais agressivos. As competições oferecem uma sensação intensa de velocidade e risco, com controles precisos e trilha sonora eletrônica acelerada. Jogadores podem melhorar sua nave, desbloquear rotas secretas e competir em eventos de campeonato interestelar.",
+        "price": 119.90,
+        "genre": 0,
+        "releaseDate": "2023-08-02T00:00:00Z"
+    },
+    {
+        "title": "Skyward Legends",
+        "description": "Uma aventura épica em um vasto mundo de ilhas flutuantes repleto de templos antigos, civilizações perdidas e enigmas misteriosos. O jogador assume o papel de um explorador encarregado de restaurar os Cristais Celestes para impedir o colapso do céu. A história combina exploração profunda, puzzles ambientais e combates contra criaturas míticas em uma narrativa emocionante sobre coragem e descoberta.",
+        "price": 129.90,
+        "genre": 1,
+        "releaseDate": "2021-06-14T00:00:00Z"
+    },
+    {
+        "title": "Iron Dominion",
+        "description": "Um jogo de estratégia em tempo real ambientado em um mundo industrializado onde o jogador precisa expandir seu império, desenvolver tecnologias avançadas e comandar exércitos mecanizados. O jogo exige equilíbrio entre economia, militarismo e diplomacia enquanto adversários controlados por IA evoluem com inteligência adaptativa.",
+        "price": 99.90,
+        "genre": 3,
+        "releaseDate": "2020-11-02T00:00:00Z"
+    },
+    {
+        "title": "Mystic Trails",
+        "description": "Um RPG ambientado em um mundo místico repleto de criaturas mágicas, ruínas antigas e povos lendários. O jogador embarca em uma jornada para dominar poderes elementais enquanto desvenda segredos que ameaçam a estabilidade do mundo. O sistema de escolhas impacta diretamente nos finais disponíveis, com companions únicos e combate dinâmico.",
+        "price": 149.00,
+        "genre": 2,
+        "releaseDate": "2022-03-21T00:00:00Z"
+    },
+    {
+        "title": "Neon Street Racers",
+        "description": "Um jogo de corrida em uma metrópole futurista iluminada por neon, composta por pistas elevadas e desafios extremos. O jogador participa de competições clandestinas, melhora veículos com peças avançadas e enfrenta pilotos lendários. Mistura física arcade e sensação realista de velocidade.",
+        "price": 89.99,
+        "genre": 5,
+        "releaseDate": "2019-09-18T00:00:00Z"
+    },
+    {
+        "title": "Deep Space Colony",
+        "description": "Um simulador detalhado onde o jogador lidera uma missão para colonizar um planeta distante. É necessário gerenciar escassez de recursos, criar estruturas funcionais, enfrentar eventos climáticos extremos e lidar com formas de vida alienígenas desconhecidas. Cada decisão afeta diretamente a sobrevivência da colônia.",
+        "price": 119.90,
+        "genre": 4,
+        "releaseDate": "2023-05-10T00:00:00Z"
+    },
+    {
+        "title": "Haunted Echoes",
+        "description": "Um terror psicológico ambientado em um hospital abandonado marcado por experimentos proibidos. O jogador precisa escapar enquanto revive memórias distorcidas e enfrenta entidades que se alimentam do medo humano. Com puzzles inteligentes e atmosfera opressora, o jogo constrói tensão constante.",
+        "price": 79.90,
+        "genre": 7,
+        "releaseDate": "2020-10-26T00:00:00Z"
+    },
+    {
+        "title": "PuzzleForge",
+        "description": "Um puzzle relaxante onde o jogador combina fragmentos mágicos para forjar artefatos antigos. Com dezenas de combinações possíveis e desafios de complexidade crescente, o jogo recompensa lógica, paciência e criatividade. Ideal para sessões curtas e foco mental.",
+        "price": 49.90,
+        "genre": 6,
+        "releaseDate": "2018-08-05T00:00:00Z"
+    },
+    {
+        "title": "BattleGrid Arena",
+        "description": "Uma experiência de ação frenética em arenas futuristas onde o jogador enfrenta ondas de inimigos robóticos altamente agressivos. O título apresenta armas personalizáveis, habilidades especiais e rankings online. Focado em reflexos rápidos e tomada de decisão instantânea.",
+        "price": 109.90,
+        "genre": 0,
+        "releaseDate": "2021-02-17T00:00:00Z"
+    },
+    {
+        "title": "Kingdom’s Architect",
+        "description": "Um simulador medieval no qual o jogador atua como arquiteto-chefe do reino, planejando e erguendo cidades completas. É preciso equilibrar crescimento urbano, felicidade da população, rotas de comércio e defesa militar. Cada construção influencia o ecossistema econômico e social do reino.",
+        "price": 139.90,
+        "genre": 4,
+        "releaseDate": "2022-09-29T00:00:00Z"
+    },
+    {
+        "title": "Shadowbound Operatives",
+        "description": "Um jogo tático de ação furtiva onde o jogador lidera uma equipe de agentes secretos em missões de infiltração ao redor do mundo. É necessário combinar gadgets avançados, abordagens silenciosas e decisões estratégicas para evitar detecção. A narrativa envolve conspirações globais e dilemas morais marcantes.",
+        "price": 134.50,
+        "genre": 0,
+        "releaseDate": "2023-02-14T00:00:00Z"
+    },
+    {
+        "title": "Eternal Soulbound",
+        "description": "Um RPG profundo onde o jogador encarna um guardião capaz de viajar entre o mundo dos vivos e o reino espiritual. Cada decisão altera permanentemente o equilíbrio entre luz e trevas. O sistema de evolução é baseado em afinidades espirituais e o mundo aberto apresenta criaturas místicas, templos esquecidos e conflitos entre facções antigas.",
+        "price": 149.90,
+        "genre": 2,
+        "releaseDate": "2022-01-10T00:00:00Z"
+    },
+    {
+        "title": "Chronicles of Valendor",
+        "description": "Em um continente devastado por guerras mágicas, o jogador busca fragmentos do lendário Grimório da Criação, enfrentando reinos rivais, dragões e espíritos ancestrais. O jogo oferece um sistema de diálogo ramificado, escolhas significativas e um elenco forte de companheiros com histórias pessoais ricas.",
+        "price": 159.00,
+        "genre": 2,
+        "releaseDate": "2023-06-30T00:00:00Z"
+    },
+    {
+        "title": "Legends of Arvoran",
+        "description": "Um RPG clássico inspirado em fantasia medieval onde o jogador assume o papel de um viajante marcado pelo destino. Com vastos reinos, magias elementais e guildas divergentes, o jogo enfatiza exploração e narrativa. Missões secundárias possuem impacto direto na saúde política do mundo.",
+        "price": 129.90,
+        "genre": 2,
+        "releaseDate": "2020-09-12T00:00:00Z"
+    },
+    {
+        "title": "Fragments of Destiny",
+        "description": "Em um mundo dividido após a queda das estrelas, o jogador deve reconstruir memórias perdidas para recuperar poderes antigos. O combate é tático e baseado em turnos, com uma trilha sonora atmosférica e personagens com profundos dilemas morais. Arte e narrativa formam uma experiência imersiva e emocional.",
+        "price": 119.00,
+        "genre": 2,
+        "releaseDate": "2021-03-22T00:00:00Z"
+    },
+    {
+        "title": "Arcane Realms Reborn",
+        "description": "Um RPG moderno ambientado em um mundo arcano em reconstrução após um cataclismo mágico. O jogador personaliza completamente sua classe, seus feitiços e sua origem, definindo estilo de combate e relações políticas. Inclui cidades vivas, decisões permanentes e criaturas colossais em batalhas épicas.",
+        "price": 169.90,
+        "genre": 2,
+        "releaseDate": "2024-02-17T00:00:00Z"
+    },
+    {
+        "title": "Urban Crisis",
+        "description": "Um jogo de ação intensa ambientado em uma mega cidade em colapso. O jogador assume o papel de um agente especial encarregado de impedir ataques terroristas coordenados. O combate é rápido, com mecânicas de cobertura, gadgets e perseguições cinematográficas por telhados e metrôs subterrâneos.",
+        "price": 109.90,
+        "genre": 0,
+        "releaseDate": "2021-10-05T00:00:00Z"
+    },
+    {
+        "title": "Starfall Operatives",
+        "description": "Um shooter espacial frenético onde o jogador integra uma unidade de elite especializada em incursões interplanetárias. O jogo apresenta batalhas aéreas contra frotas inimigas, invasões a bases espaciais e habilidades especiais que podem virar o rumo da guerra galáctica.",
+        "price": 129.90,
+        "genre": 0,
+        "releaseDate": "2023-01-28T00:00:00Z"
+    },
+    {
+        "title": "Crimson Vanguard",
+        "description": "Um jogo de ação hack-and-slash focado em combate estiloso, onde o jogador controla um guerreiro marcado por uma antiga maldição. Cada ataque libera energia vermelha que pode ser usada para habilidades devastadoras. A ambientação mistura castelos góticos com criaturas sombrias e chefes colossais.",
+        "price": 139.90,
+        "genre": 0,
+        "releaseDate": "2022-11-11T00:00:00Z"
+    },
+    {
+        "title": "Zero Phase Protocol",
+        "description": "Um FPS tático onde o jogador integra uma equipe enviada para conter um surto biotecnológico em instalações industriais isoladas. O jogo combina ação rápida com inteligência artificial agressiva, cenários claustrofóbicos e armas experimentais desenvolvidas em laboratórios clandestinos.",
+        "price": 119.00,
+        "genre": 0,
+        "releaseDate": "2020-05-08T00:00:00Z"
+    },
+    {
+        "title": "Apex Hunters",
+        "description": "Um jogo de ação cooperativa em que times enfrentam criaturas gigantes em regiões selvagens hostis. Cada área possui ecossistemas dinâmicos, clima variável e inimigos com padrões de comportamento únicos. O jogador melhora armamentos, cria armaduras e coordena estratégias de equipe.",
+        "price": 149.00,
+        "genre": 0,
+        "releaseDate": "2023-07-19T00:00:00Z"
+    }
+]
