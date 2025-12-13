@@ -37,9 +37,10 @@ public class PaymentService : IPaymentService
             {
                 token = token.Substring(7);
             }
-
+            
            
-            var request = new HttpRequestMessage(HttpMethod.Post, "https://cloudgames-payments-api.calmbay-e8300f2b.brazilsouth.azurecontainerapps.io/api/payment")
+            var paymentUrl = new Uri(_httpClient.BaseAddress!, "/api/payment");
+            var request = new HttpRequestMessage(HttpMethod.Post, paymentUrl)
             {
                 Content = JsonContent.Create(paymentRequest)
             };

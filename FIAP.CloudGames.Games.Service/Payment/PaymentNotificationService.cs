@@ -44,9 +44,8 @@ public class PaymentNotificationService : IPaymentNotificationService
                 payment.SetPaymentId(request.PaymentId);
             }
 
-            // Mapear o status string para o enum EPaymentStatus
-            var paymentStatus = MapStatusToEnum(request.Status);
-            payment.UpdateStatus(paymentStatus);
+            // O status já vem como enum no request
+            payment.UpdateStatus(request.Status);
 
             await _paymentRepository.UpdateAsync(payment);
 
@@ -65,7 +64,7 @@ public class PaymentNotificationService : IPaymentNotificationService
             }
 
             // Atualizar o status do pedido baseado no status do pagamento
-            var orderStatus = MapPaymentStatusToOrderStatus(paymentStatus);
+            var orderStatus = MapPaymentStatusToOrderStatus(request.Status);
             order.UpdateStatus(orderStatus);
 
             await _orderRepository.UpdateAsync(order);
@@ -80,19 +79,6 @@ public class PaymentNotificationService : IPaymentNotificationService
                 request.PaymentId, request.OrderId);
             throw;
         }
-    }
-
-    private static EPaymentStatus MapStatusToEnum(string status)
-    {
-
-     
-        return status.ToLowerInvariant() switch
-        {
-            "2" or "authorized" or "approved" => EPaymentStatus.Approved,
-            "3" or "rejected" or "denied" or "failed" => EPaymentStatus.Rejected,
-            "1" or "pending" or "processing" => EPaymentStatus.Processing,
-            _ => throw new DomainException($"Unknown payment status: {status}")
-        };
     }
 
     private static EOrderStatus MapPaymentStatusToOrderStatus(EPaymentStatus paymentStatus)
