@@ -80,7 +80,7 @@ public class PaymentNotificationService : IPaymentNotificationService
     {
         return paymentStatus switch
         {
-            EPaymentStatus.Approved => EOrderStatus.Authored,
+            EPaymentStatus.Approved => EOrderStatus.Paid,
             EPaymentStatus.Rejected => EOrderStatus.Unauthorized,
             EPaymentStatus.Processing => EOrderStatus.Progress,
             _ => EOrderStatus.Progress

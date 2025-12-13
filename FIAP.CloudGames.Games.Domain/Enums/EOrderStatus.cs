@@ -10,7 +10,7 @@ namespace FIAP.CloudGames.Games.Domain.Enums
     {
         Created,
         Progress,
-        Authored,
+        Paid,
         Unauthorized
     }
 }
