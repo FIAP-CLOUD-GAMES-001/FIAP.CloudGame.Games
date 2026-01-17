@@ -1,7 +1,10 @@
 ﻿
+
 using Elastic.Clients.Elasticsearch;
 using Elastic.Transport;
 using FIAP.CloudGames.Api.Filters;
+using FIAP.CloudGames.Games.Api.Consumers;
+using FIAP.CloudGames.Games.Domain.Configurations;
 using FIAP.CloudGames.Games.Domain.Interfaces.Repositories;
 using FIAP.CloudGames.Games.Domain.Interfaces.Services;
 using FIAP.CloudGames.Games.Domain.Models;
@@ -50,6 +53,7 @@ public static class BuilderExtension
         builder.ConfigureHealthChecks();
         builder.ConfigureValidators();
         builder.ConfigureElasticSearch();
+        builder.ConfigureRabbitMq();
     }
 
     private static void ConfigureHealthChecks(this WebApplicationBuilder builder)
@@ -59,16 +63,11 @@ public static class BuilderExtension
     }
     private static void ConfigureDependencyInjectionService(this WebApplicationBuilder builder)
     {
-        //builder.Services.AddScoped<IAuthService, AuthService>();
-        //builder.Services.AddScoped<ITokenService, TokenService>();
-        //builder.Services.AddScoped<IUserService, UserService>();
         builder.Services.AddScoped<IGameService, GameService>();
-        //builder.Services.AddScoped<IOwnedGameService, OwnedGameService>();
         builder.Services.AddScoped<IPromotionService, PromotionService>();
         builder.Services.AddScoped<IOrderService, OrderService>();
         builder.Services.AddScoped<IPaymentQueryService, PaymentQueryService>();
         builder.Services.AddScoped<IPaymentNotificationService, PaymentNotificationService>();
-        // PaymentService é registrado via AddHttpClient no ConfigurePaymentService
 
         builder.Services.AddScoped<OwnedGameAccessFilter>();
     }
@@ -85,10 +84,8 @@ public static class BuilderExtension
     }
     private static void ConfigureDependencyInjectionRepository(this WebApplicationBuilder builder)
     {
-        //builder.Services.AddScoped<IUserRepository, UserRepository>();
         builder.Services.AddScoped<IGameRepository, GameRepository>();
         builder.Services.AddScoped<IGameElasticSearchRepository, GameElasticSearchRepository>();
-        //builder.Services.AddScoped<IOwnedGameRepository, OwnedGameRepository>();
         builder.Services.AddScoped<IPromotionRepository, PromotionRepository>();
         builder.Services.AddScoped<IOrderRepository, OrderRepository>();
         builder.Services.AddScoped<IPaymentRepository, PaymentRepository>();
@@ -102,7 +99,7 @@ public static class BuilderExtension
         var key = configuration["Key"] ?? throw new InvalidOperationException("JWT Key not configured");
 
         // Log para debug
-        Log.Information("JWT Configuration - Issuer: {Issuer}, Audience: {Audience}, Key Length: {KeyLength}", 
+        Log.Information("JWT Configuration - Issuer: {Issuer}, Audience: {Audience}, Key Length: {KeyLength}",
             issuer, audience, key.Length);
 
         builder.Services
@@ -126,9 +123,9 @@ public static class BuilderExtension
                     OnAuthenticationFailed = context =>
                     {
                         var exception = context.Exception;
-                        Log.Error(exception, "JWT Authentication Failed - Exception: {ExceptionType}, Message: {Message}", 
+                        Log.Error(exception, "JWT Authentication Failed - Exception: {ExceptionType}, Message: {Message}",
                             exception.GetType().Name, exception.Message);
-                        
+
                         // Log detalhado do erro
                         if (exception is SecurityTokenInvalidIssuerException)
                             Log.Error("JWT Error: Invalid Issuer. Expected: {ExpectedIssuer}", issuer);
@@ -141,10 +138,10 @@ public static class BuilderExtension
 
                         context.Response.ContentType = "application/json";
                         context.Response.StatusCode = (int)HttpStatusCode.Unauthorized;
-                        var apiResponse = ApiResponse<string>.Fail("Authentication Failed", 
+                        var apiResponse = ApiResponse<string>.Fail("Authentication Failed",
                             [$"JWT validation failed: {exception.Message}"]);
                         var jsonResponse = JsonSerializer.Serialize(apiResponse);
-                        
+
                         return context.Response.WriteAsync(jsonResponse);
                     },
                     OnForbidden = context =>
@@ -172,7 +169,6 @@ public static class BuilderExtension
             });
 
         builder.Services.AddAuthorization();
-        //builder.Services.AddScoped<TokenService>();
     }
     private static void ConfigureLogMongo(this WebApplicationBuilder builder)
     {
@@ -256,7 +252,7 @@ public static class BuilderExtension
     private static void ConfigureValidators(this WebApplicationBuilder builder)
     {
         builder.Services.AddValidatorsFromAssemblyContaining<Program>();
-        
+
     }
     private static void UseJsonFileConfiguration(this WebApplicationBuilder builder)
     {
@@ -291,5 +287,42 @@ public static class BuilderExtension
 
             return new ElasticsearchClient(settings);
         });
+    }
+
+    private static void ConfigureRabbitMq(this WebApplicationBuilder builder)
+    {
+        try
+        {
+            Log.Information("Configuring RabbitMQ...");
+
+            var rabbitMqSection = builder.Configuration.GetSection("RabbitMq");
+
+            if (!rabbitMqSection.Exists())
+            {
+                Log.Warning("RabbitMq configuration section not found in appsettings");
+                return;
+            }
+
+            builder.Services.Configure<RabbitMqSettings>(rabbitMqSection);
+
+            var settings = rabbitMqSection.Get<RabbitMqSettings>();
+
+            if (settings == null)
+            {
+                Log.Warning("RabbitMq settings could not be bound");
+                return;
+            }
+
+            Log.Information("Registering RabbitMQ consumer with settings - Host: {Host}, Port: {Port}, Queue: {Queue}",
+                settings.Host, settings.Port, settings.QueueName);
+
+            builder.Services.AddHostedService<PaymentNotificationConsumer>();
+
+            Log.Information("RabbitMQ consumer configured successfully");
+        }
+        catch (Exception ex)
+        {
+            Log.Error(ex, "Failed to configure RabbitMQ: {Message}", ex.Message);
+        }
     }
 }
