@@ -102,7 +102,14 @@ public class PaymentNotificationConsumer : BackgroundService
             Port = _rabbitMqSettings.Port,
             UserName = _rabbitMqSettings.Username,
             Password = _rabbitMqSettings.Password,
-            DispatchConsumersAsync = true
+            DispatchConsumersAsync = true,
+            VirtualHost = _rabbitMqSettings.Username,
+            Ssl = new SslOption
+            {
+                Enabled = true,
+                ServerName = _rabbitMqSettings.Host,
+                CertificateValidationCallback = (sender, certificate, chain, sslPolicyErrors) => true
+            }
         };
 
         _connection = factory.CreateConnection();
