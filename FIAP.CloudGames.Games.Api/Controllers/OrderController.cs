@@ -68,8 +68,8 @@ public class OrderController(
     {
         var order = await orderService.GetByIdAsync(id);
         if (order == null)
-            return this.ApiOk( $"Order with ID {id} not found.", "Orders null");
-        
+            return this.ApiOk($"Order with ID {id} not found.", "Orders null");
+
         return this.ApiOk(order, "Order retrieved successfully.");
     }
 
