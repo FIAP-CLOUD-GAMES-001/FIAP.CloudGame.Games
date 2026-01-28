@@ -54,6 +54,7 @@ public static class BuilderExtension
         builder.ConfigureValidators();
         builder.ConfigureElasticSearch();
         builder.ConfigureRabbitMq();
+        builder.ConfigureApplicationInsights();
     }
 
     private static void ConfigureHealthChecks(this WebApplicationBuilder builder)
@@ -273,7 +274,6 @@ public static class BuilderExtension
             .AddJsonFile("appsettings.Secrets.json", optional: true, reloadOnChange: true)
             .AddEnvironmentVariables();
     }
-
     private static void ConfigureElasticSearch(this WebApplicationBuilder builder)
     {
         var configuration = builder.Configuration.GetSection("Elasticsearch");
@@ -288,7 +288,6 @@ public static class BuilderExtension
             return new ElasticsearchClient(settings);
         });
     }
-
     private static void ConfigureRabbitMq(this WebApplicationBuilder builder)
     {
         try
@@ -324,5 +323,9 @@ public static class BuilderExtension
         {
             Log.Error(ex, "Failed to configure RabbitMQ: {Message}", ex.Message);
         }
+    }
+    private static void ConfigureApplicationInsights(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddApplicationInsightsTelemetry();
     }
 }
