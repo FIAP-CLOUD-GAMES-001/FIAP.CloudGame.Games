@@ -1,7 +1,8 @@
 ﻿
+using FIAP.CloudGames.Games.Api.Middlewares;
 using FIAP.CloudGames.Games.Infrastructure.Data;
-using FIAP.CloudGames.Usuarios.Api.Middlewares;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.OpenApi.Models;
 using Swashbuckle.AspNetCore.SwaggerUI;
 
 namespace FIAP.CloudGames.Api.Extensions;
@@ -15,6 +16,7 @@ public static class AppExtension
         app.UseAuthentication();
         app.UseAuthorization();
         app.UseMiddleware<ExceptionHandlingMiddleware>();
+        app.UseMiddleware<ForwardedPrefixMiddleware>();
         app.MapControllers();
         app.GenerateMigrations();
         app.MapHealthChecks("/health");
@@ -25,11 +27,32 @@ public static class AppExtension
         //if (!app.Environment.IsDevelopment())
         //    return;
 
-        app.UseSwagger();
+        var pathBase = app.Configuration["Swagger:PathBase"] ?? string.Empty;
+        
+        app.UseSwagger(c =>
+        {
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                c.PreSerializeFilters.Add((swagger, httpReq) =>
+                {
+                    swagger.Servers = new List<OpenApiServer>
+                    {
+                        new OpenApiServer { Url = pathBase }
+                    };
+                });
+            }
+        });
 
         app.UseSwaggerUI(c =>
         {
-            c.SwaggerEndpoint("/swagger/v1/swagger.json", "FiapCloudGamesApi API v1");
+            var swaggerUrl = string.IsNullOrEmpty(pathBase) 
+                ? "/swagger/v1/swagger.json" 
+                : $"{pathBase.TrimEnd('/')}/swagger/v1/swagger.json";
+            
+            c.SwaggerEndpoint(swaggerUrl, "FIAPCloudGames Games API v1");
+            
+            c.RoutePrefix = "swagger";
+
             c.SupportedSubmitMethods([
                 SubmitMethod.Get,
                 SubmitMethod.Post,

@@ -1,0 +1,36 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: fcg-games-api
+  labels:
+    app: fcg-games-api
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: fcg-games-api
+  template:
+    metadata:
+      labels:
+        app: fcg-games-api
+    spec:
+      imagePullSecrets:
+        - name: fcg-acr-secret
+      containers:
+        - name: fcg-games-api
+          image: ${DOCKER_REGISTRY}/fcg-games-api:${DOCKER_IMAGE_TAG}
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          envFrom:
+            - secretRef:
+                name: fcg-games-api-secret
+          resources:
+            requests:
+              cpu: "100m"
+              memory: "128Mi"
+              ephemeral-storage: "512Mi"
+            limits:
+              cpu: "250m"
+              memory: "256Mi"
+              ephemeral-storage: "1Gi"
