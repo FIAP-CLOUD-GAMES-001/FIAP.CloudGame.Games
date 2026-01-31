@@ -7,7 +7,7 @@ using System.Net;
 using System.Security.Authentication;
 using System.Text.Json;
 
-namespace FIAP.CloudGames.Usuarios.Api.Middlewares;
+namespace FIAP.CloudGames.Games.Api.Middlewares;
 
 public class ExceptionHandlingMiddleware(
     RequestDelegate next,

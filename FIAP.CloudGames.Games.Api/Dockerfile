@@ -1,12 +1,6 @@
-# Esta fase é usada durante a execução no VS no modo rápido (Padrão para a configuração de Depuração)
-FROM mcr.microsoft.com/dotnet/aspnet:8.0 AS base
-USER $APP_UID
-WORKDIR /app
-EXPOSE 8080
-EXPOSE 8081
-
 # Esta fase é usada para compilar o projeto de serviço
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
+USER root
 ARG BUILD_CONFIGURATION=Release
 WORKDIR /src
 
@@ -27,17 +21,29 @@ COPY . .
 WORKDIR "/src/FIAP.CloudGames.Games.Api"
 RUN dotnet build "FIAP.CloudGames.Games.Api.csproj" -c $BUILD_CONFIGURATION -o /app/build
 
-# Esta fase é usada para publicar o projeto de serviço a ser copiado para a fase final
-FROM build AS publish
-ARG BUILD_CONFIGURATION=Release
+# Publica o projeto
 RUN dotnet publish "FIAP.CloudGames.Games.Api.csproj" -c $BUILD_CONFIGURATION -o /app/publish /p:UseAppHost=false
 
 # Esta fase é usada na produção
-FROM base AS final
+FROM mcr.microsoft.com/dotnet/aspnet:8.0-alpine AS final
+USER root
+
+# Configurando timezone para America/Sao_Paulo
+RUN apk add --no-cache tzdata icu-libs \
+    && cp /usr/share/zoneinfo/America/Sao_Paulo /etc/localtime \
+    && echo "America/Sao_Paulo" > /etc/timezone \
+    && apk del tzdata
+
+ENV TZ=America/Sao_Paulo
+ENV DOTNET_SYSTEM_GLOBALIZATION_INVARIANT=false
+
 WORKDIR /app
-COPY --from=publish /app/publish .
+COPY --from=build /app/publish .
+
+RUN chown -R $APP_UID /app
+
+EXPOSE 8080
+EXPOSE 8081
+
+USER $APP_UID
 ENTRYPOINT ["dotnet", "FIAP.CloudGames.Games.Api.dll"]
-
-
-
-

@@ -213,12 +213,24 @@ public static class BuilderExtension
         builder.Services.AddSwaggerGen(options =>
         {
             options.SchemaFilter<EnumSchemaFilter>();
+
+            var pathBase = builder.Configuration["Swagger:PathBase"];
+
             options.SwaggerDoc("v1", new OpenApiInfo
             {
                 Title = "FiapCloudGamesApi",
                 Version = "v1",
                 Description = "API Web ASP.NET Core",
             });
+
+            if (!string.IsNullOrEmpty(pathBase))
+            {
+                options.AddServer(new OpenApiServer
+                {
+                    Url = pathBase,
+                    Description = "Production Gateway"
+                });
+            }
 
             options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme
             {
