@@ -45,7 +45,7 @@ public class OrderService(
         {
             OrderId = order.Id.ToString(),
             OrderAmount = totalAmount,
-            PaymentMethod = ((int)request.PaymentMethod).ToString(),
+            PaymentMethod = (int)request.PaymentMethod,
             OrderDate = order.CreatedAt
         };
 
