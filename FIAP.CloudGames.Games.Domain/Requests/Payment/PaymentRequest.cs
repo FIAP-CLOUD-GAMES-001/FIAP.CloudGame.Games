@@ -9,7 +9,7 @@ public class PaymentRequest
 {
     public string OrderId { get; set; } = string.Empty;
     public decimal OrderAmount { get; set; }
-    public string PaymentMethod { get; set; }
+    public int PaymentMethod { get; set; }
     public DateTime OrderDate { get; set; }
 
    
@@ -20,7 +20,7 @@ public class PaymentRequest
         OrderId = orderId;
         OrderAmount = orderAmount;
         OrderDate = orderDate;
-        PaymentMethod = ePaymentMethod.ToString();
+        PaymentMethod = (int)ePaymentMethod;
     }
 }
 

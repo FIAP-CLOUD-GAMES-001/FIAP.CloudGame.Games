@@ -39,7 +39,13 @@ public class PaymentService : IPaymentService
             }
             
            
-            var paymentUrl = new Uri(_httpClient.BaseAddress!, "/api/payment");
+            var baseAddress = _httpClient.BaseAddress!;
+            if (!baseAddress.OriginalString.EndsWith("/"))
+            {
+                baseAddress = new Uri(baseAddress.OriginalString + "/");
+            }
+            
+            var paymentUrl = new Uri(baseAddress, "api/payment");
             var request = new HttpRequestMessage(HttpMethod.Post, paymentUrl)
             {
                 Content = JsonContent.Create(paymentRequest)
